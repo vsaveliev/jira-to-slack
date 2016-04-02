@@ -1,7 +1,7 @@
 package jira_test
 
 import (
-	"bitbucket.org/vsaveliev/slack/jira"
+	"github.com/vsaveliev/jira-to-slack/jira"
 	"testing"
 
 	"encoding/json"
@@ -21,16 +21,16 @@ var jsonCreatedIssueEvent string = `{
             "assignee": {
                 "active": true,
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&ownerId=dmishin&avatarId=10800",
-                    "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&ownerId=dmishin&avatarId=10800",
-                    "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&ownerId=dmishin&avatarId=10800",
-                    "48x48": "https://jira.openprovider.nl/secure/useravatar?ownerId=dmishin&avatarId=10800"
+                    "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&ownerId=johnsmith&avatarId=10800",
+                    "24x24": "https://jira.github.com/secure/useravatar?size=small&ownerId=johnsmith&avatarId=10800",
+                    "32x32": "https://jira.github.com/secure/useravatar?size=medium&ownerId=johnsmith&avatarId=10800",
+                    "48x48": "https://jira.github.com/secure/useravatar?ownerId=johnsmith&avatarId=10800"
                 },
                 "displayName": "Vladislav Saveliev",
-                "emailAddress": "dmishin@openprovider.ru",
-                "key": "dmishin",
-                "name": "dmishin",
-                "self": "https://jira.openprovider.nl/rest/api/2/user?username=dmishin",
+                "emailAddress": "johnsmith@github.com",
+                "key": "johnsmith",
+                "name": "johnsmith",
+                "self": "https://jira.github.com/rest/api/2/user?username=johnsmith",
                 "timeZone": "Asia/Novosibirsk"
             },
             "attachment": [],
@@ -45,23 +45,23 @@ var jsonCreatedIssueEvent string = `{
                     "description": "Invoice lines, reports, balance, product renewal",
                     "id": "10209",
                     "name": "Billing",
-                    "self": "https://jira.openprovider.nl/rest/api/2/component/10209"
+                    "self": "https://jira.github.com/rest/api/2/component/10209"
                 }
             ],
             "created": "2016-03-30T14:21:27.240+0200",
             "creator": {
                 "active": true,
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&avatarId=10122",
-                    "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&avatarId=10122",
-                    "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&avatarId=10122",
-                    "48x48": "https://jira.openprovider.nl/secure/useravatar?avatarId=10122"
+                    "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&avatarId=10122",
+                    "24x24": "https://jira.github.com/secure/useravatar?size=small&avatarId=10122",
+                    "32x32": "https://jira.github.com/secure/useravatar?size=medium&avatarId=10122",
+                    "48x48": "https://jira.github.com/secure/useravatar?avatarId=10122"
                 },
-                "displayName": "Maarten van Bokhorst",
-                "emailAddress": "maarten@openprovider.nl",
+                "displayName": "Michael Daddy",
+                "emailAddress": "maarten@github.com",
                 "key": "maarten",
                 "name": "maarten",
-                "self": "https://jira.openprovider.nl/rest/api/2/user?username=maarten",
+                "self": "https://jira.github.com/rest/api/2/user?username=maarten",
                 "timeZone": "CET"
             },
             "customfield_10000": null,
@@ -79,7 +79,7 @@ var jsonCreatedIssueEvent string = `{
             "customfield_10502": "0",
             "customfield_10504": null,
             "customfield_10505": null,
-            "description": "Reseller 172369 reports to me that most of the domains that were renewed today were invoiced double, but not all of them.\r\n\r\nExamples of double renewals;\r\nmarktplaatsoccasions.nl\t\r\nmarktplaatsheerenveen.nl\t\r\nmarktplaats-occasions.nl\t\r\n\r\nExample of single renewals (to show that it's not for ALL renewals);\r\ntrieme.nl\t\r\nscherhemstraat.nl\t\r\n\r\nImpact:\r\n- Customers pay double for their renewals\r\n\r\nExpected follow-up:\r\n- Find cause\r\n- Refund double transactions\r\n- Correct flat fee counters (if they were affected, it's not clear to me)",
+            "description": "Reseller reports to me thathem.",
             "duedate": null,
             "environment": null,
             "fixVersions": [],
@@ -87,19 +87,19 @@ var jsonCreatedIssueEvent string = `{
             "issuetype": {
                 "avatarId": 10503,
                 "description": "A problem which impairs or prevents the functions of the product.",
-                "iconUrl": "https://jira.openprovider.nl/secure/viewavatar?size=xsmall&avatarId=10503&avatarType=issuetype",
+                "iconUrl": "https://jira.github.com/secure/viewavatar?size=xsmall&avatarId=10503&avatarType=issuetype",
                 "id": "1",
                 "name": "Bug",
-                "self": "https://jira.openprovider.nl/rest/api/2/issuetype/1",
+                "self": "https://jira.github.com/rest/api/2/issuetype/1",
                 "subtask": false
             },
             "labels": [],
             "lastViewed": null,
             "priority": {
-                "iconUrl": "https://jira.openprovider.nl/images/icons/priorities/blocker.svg",
+                "iconUrl": "https://jira.github.com/images/icons/priorities/blocker.svg",
                 "id": "1",
                 "name": "Blocker",
-                "self": "https://jira.openprovider.nl/rest/api/2/priority/1"
+                "self": "https://jira.github.com/rest/api/2/priority/1"
             },
             "progress": {
                 "progress": 0,
@@ -107,45 +107,45 @@ var jsonCreatedIssueEvent string = `{
             },
             "project": {
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
-                    "24x24": "https://jira.openprovider.nl/secure/projectavatar?size=small&pid=10000&avatarId=10011",
-                    "32x32": "https://jira.openprovider.nl/secure/projectavatar?size=medium&pid=10000&avatarId=10011",
-                    "48x48": "https://jira.openprovider.nl/secure/projectavatar?pid=10000&avatarId=10011"
+                    "16x16": "https://jira.github.com/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
+                    "24x24": "https://jira.github.com/secure/projectavatar?size=small&pid=10000&avatarId=10011",
+                    "32x32": "https://jira.github.com/secure/projectavatar?size=medium&pid=10000&avatarId=10011",
+                    "48x48": "https://jira.github.com/secure/projectavatar?pid=10000&avatarId=10011"
                 },
                 "id": "10000",
                 "key": "OP",
                 "name": "openprovider",
-                "self": "https://jira.openprovider.nl/rest/api/2/project/10000"
+                "self": "https://jira.github.com/rest/api/2/project/10000"
             },
             "reporter": {
                 "active": true,
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&avatarId=10122",
-                    "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&avatarId=10122",
-                    "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&avatarId=10122",
-                    "48x48": "https://jira.openprovider.nl/secure/useravatar?avatarId=10122"
+                    "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&avatarId=10122",
+                    "24x24": "https://jira.github.com/secure/useravatar?size=small&avatarId=10122",
+                    "32x32": "https://jira.github.com/secure/useravatar?size=medium&avatarId=10122",
+                    "48x48": "https://jira.github.com/secure/useravatar?avatarId=10122"
                 },
-                "displayName": "Maarten van Bokhorst",
-                "emailAddress": "maarten@openprovider.nl",
+                "displayName": "Michael Daddy",
+                "emailAddress": "maarten@github.com",
                 "key": "maarten",
                 "name": "maarten",
-                "self": "https://jira.openprovider.nl/rest/api/2/user?username=maarten",
+                "self": "https://jira.github.com/rest/api/2/user?username=maarten",
                 "timeZone": "CET"
             },
             "resolution": null,
             "resolutiondate": null,
             "status": {
                 "description": "",
-                "iconUrl": "https://jira.openprovider.nl/images/icons/statuses/generic.png",
+                "iconUrl": "https://jira.github.com/images/icons/statuses/generic.png",
                 "id": "1",
                 "name": "Open",
-                "self": "https://jira.openprovider.nl/rest/api/2/status/1",
+                "self": "https://jira.github.com/rest/api/2/status/1",
                 "statusCategory": {
                     "colorName": "blue-gray",
                     "id": 2,
                     "key": "new",
                     "name": "To Do",
-                    "self": "https://jira.openprovider.nl/rest/api/2/statuscategory/2"
+                    "self": "https://jira.github.com/rest/api/2/statuscategory/2"
                 }
             },
             "subtasks": [],
@@ -158,12 +158,12 @@ var jsonCreatedIssueEvent string = `{
             "versions": [],
             "votes": {
                 "hasVoted": false,
-                "self": "https://jira.openprovider.nl/rest/api/2/issue/OP-8534/votes",
+                "self": "https://jira.github.com/rest/api/2/issue/OP-8534/votes",
                 "votes": 0
             },
             "watches": {
                 "isWatching": false,
-                "self": "https://jira.openprovider.nl/rest/api/2/issue/OP-8534/watchers",
+                "self": "https://jira.github.com/rest/api/2/issue/OP-8534/watchers",
                 "watchCount": 0
             },
             "worklog": {
@@ -176,22 +176,22 @@ var jsonCreatedIssueEvent string = `{
         },
         "id": "20951",
         "key": "OP-8534",
-        "self": "https://jira.openprovider.nl/rest/api/2/issue/20951"
+        "self": "https://jira.github.com/rest/api/2/issue/20951"
     },
     "timestamp": 1459340487369,
     "user": {
         "active": true,
         "avatarUrls": {
-            "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&avatarId=10122",
-            "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&avatarId=10122",
-            "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&avatarId=10122",
-            "48x48": "https://jira.openprovider.nl/secure/useravatar?avatarId=10122"
+            "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&avatarId=10122",
+            "24x24": "https://jira.github.com/secure/useravatar?size=small&avatarId=10122",
+            "32x32": "https://jira.github.com/secure/useravatar?size=medium&avatarId=10122",
+            "48x48": "https://jira.github.com/secure/useravatar?avatarId=10122"
         },
-        "displayName": "Maarten van Bokhorst",
-        "emailAddress": "maarten@openprovider.nl",
+        "displayName": "Michael Daddy",
+        "emailAddress": "maarten@github.com",
         "key": "maarten",
         "name": "maarten",
-        "self": "https://jira.openprovider.nl/rest/api/2/user?username=maarten",
+        "self": "https://jira.github.com/rest/api/2/user?username=maarten",
         "timeZone": "CET"
     },
     "webhookEvent": "jira:issue_created"
@@ -224,16 +224,16 @@ var jsonUpdatedIssueEvent string = `
             "assignee": {
                 "active": true,
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&ownerId=vsaveliev&avatarId=10600",
-                    "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&ownerId=vsaveliev&avatarId=10600",
-                    "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&ownerId=vsaveliev&avatarId=10600",
-                    "48x48": "https://jira.openprovider.nl/secure/useravatar?ownerId=vsaveliev&avatarId=10600"
+                    "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&ownerId=vsaveliev&avatarId=10600",
+                    "24x24": "https://jira.github.com/secure/useravatar?size=small&ownerId=vsaveliev&avatarId=10600",
+                    "32x32": "https://jira.github.com/secure/useravatar?size=medium&ownerId=vsaveliev&avatarId=10600",
+                    "48x48": "https://jira.github.com/secure/useravatar?ownerId=vsaveliev&avatarId=10600"
                 },
                 "displayName": "Vladislav Saveliev",
-                "emailAddress": "vsaveliev@openprovider.ru",
+                "emailAddress": "vsaveliev@github.com",
                 "key": "vsaveliev",
                 "name": "vsaveliev",
-                "self": "https://jira.openprovider.nl/rest/api/2/user?username=vsaveliev",
+                "self": "https://jira.github.com/rest/api/2/user?username=vsaveliev",
                 "timeZone": "Asia/Novosibirsk"
             },
             "attachment": [
@@ -241,26 +241,26 @@ var jsonUpdatedIssueEvent string = `
                     "author": {
                         "active": true,
                         "avatarUrls": {
-                            "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&avatarId=10122",
-                            "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&avatarId=10122",
-                            "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&avatarId=10122",
-                            "48x48": "https://jira.openprovider.nl/secure/useravatar?avatarId=10122"
+                            "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&avatarId=10122",
+                            "24x24": "https://jira.github.com/secure/useravatar?size=small&avatarId=10122",
+                            "32x32": "https://jira.github.com/secure/useravatar?size=medium&avatarId=10122",
+                            "48x48": "https://jira.github.com/secure/useravatar?avatarId=10122"
                         },
-                        "displayName": "Maarten van Bokhorst",
-                        "emailAddress": "maarten@openprovider.nl",
+                        "displayName": "Michael Daddy",
+                        "emailAddress": "maarten@github.com",
                         "key": "maarten",
                         "name": "maarten",
-                        "self": "https://jira.openprovider.nl/rest/api/2/user?username=maarten",
+                        "self": "https://jira.github.com/rest/api/2/user?username=maarten",
                         "timeZone": "CET"
                     },
-                    "content": "https://jira.openprovider.nl/secure/attachment/13361/Screen+Shot+2016-03-30+at+14.54.05.png",
+                    "content": "https://jira.github.com/secure/attachment/13361/Screen+Shot+2016-03-30+at+14.54.05.png",
                     "created": "2016-03-30T14:55:03.883+0200",
                     "filename": "Screen Shot 2016-03-30 at 14.54.05.png",
                     "id": "13361",
                     "mimeType": "image/png",
-                    "self": "https://jira.openprovider.nl/rest/api/2/attachment/13361",
+                    "self": "https://jira.github.com/rest/api/2/attachment/13361",
                     "size": 136477,
-                    "thumbnail": "https://jira.openprovider.nl/secure/thumbnail/13361/_thumb_13361.png"
+                    "thumbnail": "https://jira.github.com/secure/thumbnail/13361/_thumb_13361.png"
                 }
             ],
             "comment": {
@@ -273,23 +273,23 @@ var jsonUpdatedIssueEvent string = `
                 {
                     "id": "10201",
                     "name": "Domain management",
-                    "self": "https://jira.openprovider.nl/rest/api/2/component/10201"
+                    "self": "https://jira.github.com/rest/api/2/component/10201"
                 }
             ],
             "created": "2016-03-30T14:21:27.240+0200",
             "creator": {
                 "active": true,
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&avatarId=10122",
-                    "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&avatarId=10122",
-                    "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&avatarId=10122",
-                    "48x48": "https://jira.openprovider.nl/secure/useravatar?avatarId=10122"
+                    "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&avatarId=10122",
+                    "24x24": "https://jira.github.com/secure/useravatar?size=small&avatarId=10122",
+                    "32x32": "https://jira.github.com/secure/useravatar?size=medium&avatarId=10122",
+                    "48x48": "https://jira.github.com/secure/useravatar?avatarId=10122"
                 },
-                "displayName": "Maarten van Bokhorst",
-                "emailAddress": "maarten@openprovider.nl",
+                "displayName": "Michael Daddy",
+                "emailAddress": "maarten@github.com",
                 "key": "maarten",
                 "name": "maarten",
-                "self": "https://jira.openprovider.nl/rest/api/2/user?username=maarten",
+                "self": "https://jira.github.com/rest/api/2/user?username=maarten",
                 "timeZone": "CET"
             },
             "customfield_10000": null,
@@ -308,10 +308,10 @@ var jsonUpdatedIssueEvent string = `
             "customfield_10504": null,
             "customfield_10505": {
                 "id": "10114",
-                "self": "https://jira.openprovider.nl/rest/api/2/customFieldOption/10114",
+                "self": "https://jira.github.com/rest/api/2/customFieldOption/10114",
                 "value": "Expirations ( Vladislav Saveliev )"
             },
-            "description": "Reseller 172369 reports to me that most of the domains that were renewed today were invoiced double, but not all of them.\r\n\r\nExamples of double renewals;\r\nmarktplaatsoccasions.nl\t\r\nmarktplaatsheerenveen.nl\t\r\nmarktplaats-occasions.nl\t\r\n\r\nExample of single renewals (to show that it's not for ALL renewals);\r\ntrieme.nl\t\r\nscherhemstraat.nl\t\r\n\r\nImpact:\r\n- Customers pay double for their renewals\r\n\r\nExpected follow-up:\r\n- Find cause\r\n- Refund double transactions\r\n- Correct flat fee counters (if they were affected, it's not clear to me)\r\n- Provide a list of affected resellers with e-mail address of admin contact\r\n\r\nAdded challenge in reseller 175028, his flat fee ran out of counters due to the double renewals. Just refunding the double transactions is not sufficient as his counter will allow for most domains to be renewed for 3.00 instead of 5.45 that they are renewed now.",
+            "description": "Reseller reports to me that most of the domains that were renewed today were invoiced double.",
             "duedate": null,
             "environment": null,
             "fixVersions": [],
@@ -319,19 +319,19 @@ var jsonUpdatedIssueEvent string = `
             "issuetype": {
                 "avatarId": 10503,
                 "description": "A problem which impairs or prevents the functions of the product.",
-                "iconUrl": "https://jira.openprovider.nl/secure/viewavatar?size=xsmall&avatarId=10503&avatarType=issuetype",
+                "iconUrl": "https://jira.github.com/secure/viewavatar?size=xsmall&avatarId=10503&avatarType=issuetype",
                 "id": "1",
                 "name": "Bug",
-                "self": "https://jira.openprovider.nl/rest/api/2/issuetype/1",
+                "self": "https://jira.github.com/rest/api/2/issuetype/1",
                 "subtask": false
             },
             "labels": [],
             "lastViewed": "2016-03-30T15:25:53.013+0200",
             "priority": {
-                "iconUrl": "https://jira.openprovider.nl/images/icons/priorities/blocker.svg",
+                "iconUrl": "https://jira.github.com/images/icons/priorities/blocker.svg",
                 "id": "1",
                 "name": "Blocker",
-                "self": "https://jira.openprovider.nl/rest/api/2/priority/1"
+                "self": "https://jira.github.com/rest/api/2/priority/1"
             },
             "progress": {
                 "progress": 0,
@@ -339,45 +339,45 @@ var jsonUpdatedIssueEvent string = `
             },
             "project": {
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
-                    "24x24": "https://jira.openprovider.nl/secure/projectavatar?size=small&pid=10000&avatarId=10011",
-                    "32x32": "https://jira.openprovider.nl/secure/projectavatar?size=medium&pid=10000&avatarId=10011",
-                    "48x48": "https://jira.openprovider.nl/secure/projectavatar?pid=10000&avatarId=10011"
+                    "16x16": "https://jira.github.com/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
+                    "24x24": "https://jira.github.com/secure/projectavatar?size=small&pid=10000&avatarId=10011",
+                    "32x32": "https://jira.github.com/secure/projectavatar?size=medium&pid=10000&avatarId=10011",
+                    "48x48": "https://jira.github.com/secure/projectavatar?pid=10000&avatarId=10011"
                 },
                 "id": "10000",
                 "key": "OP",
                 "name": "openprovider",
-                "self": "https://jira.openprovider.nl/rest/api/2/project/10000"
+                "self": "https://jira.github.com/rest/api/2/project/10000"
             },
             "reporter": {
                 "active": true,
                 "avatarUrls": {
-                    "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&avatarId=10122",
-                    "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&avatarId=10122",
-                    "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&avatarId=10122",
-                    "48x48": "https://jira.openprovider.nl/secure/useravatar?avatarId=10122"
+                    "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&avatarId=10122",
+                    "24x24": "https://jira.github.com/secure/useravatar?size=small&avatarId=10122",
+                    "32x32": "https://jira.github.com/secure/useravatar?size=medium&avatarId=10122",
+                    "48x48": "https://jira.github.com/secure/useravatar?avatarId=10122"
                 },
-                "displayName": "Maarten van Bokhorst",
-                "emailAddress": "maarten@openprovider.nl",
+                "displayName": "Michael Daddy",
+                "emailAddress": "maarten@github.com",
                 "key": "maarten",
                 "name": "maarten",
-                "self": "https://jira.openprovider.nl/rest/api/2/user?username=maarten",
+                "self": "https://jira.github.com/rest/api/2/user?username=maarten",
                 "timeZone": "CET"
             },
             "resolution": null,
             "resolutiondate": null,
             "status": {
                 "description": "",
-                "iconUrl": "https://jira.openprovider.nl/images/icons/statuses/generic.png",
+                "iconUrl": "https://jira.github.com/images/icons/statuses/generic.png",
                 "id": "3",
                 "name": "In Progress",
-                "self": "https://jira.openprovider.nl/rest/api/2/status/3",
+                "self": "https://jira.github.com/rest/api/2/status/3",
                 "statusCategory": {
                     "colorName": "yellow",
                     "id": 4,
                     "key": "indeterminate",
                     "name": "In Progress",
-                    "self": "https://jira.openprovider.nl/rest/api/2/statuscategory/4"
+                    "self": "https://jira.github.com/rest/api/2/statuscategory/4"
                 }
             },
             "subtasks": [],
@@ -395,17 +395,17 @@ var jsonUpdatedIssueEvent string = `
                     "name": "LIVE",
                     "releaseDate": "2020-05-29",
                     "released": false,
-                    "self": "https://jira.openprovider.nl/rest/api/2/version/10200"
+                    "self": "https://jira.github.com/rest/api/2/version/10200"
                 }
             ],
             "votes": {
                 "hasVoted": false,
-                "self": "https://jira.openprovider.nl/rest/api/2/issue/OP-8534/votes",
+                "self": "https://jira.github.com/rest/api/2/issue/OP-8534/votes",
                 "votes": 0
             },
             "watches": {
                 "isWatching": false,
-                "self": "https://jira.openprovider.nl/rest/api/2/issue/OP-8534/watchers",
+                "self": "https://jira.github.com/rest/api/2/issue/OP-8534/watchers",
                 "watchCount": 1
             },
             "worklog": {
@@ -418,22 +418,22 @@ var jsonUpdatedIssueEvent string = `
         },
         "id": "20951",
         "key": "OP-8534",
-        "self": "https://jira.openprovider.nl/rest/api/2/issue/20951"
+        "self": "https://jira.github.com/rest/api/2/issue/20951"
     },
     "timestamp": 1459344353085,
     "user": {
         "active": true,
         "avatarUrls": {
-            "16x16": "https://jira.openprovider.nl/secure/useravatar?size=xsmall&ownerId=vsaveliev&avatarId=10600",
-            "24x24": "https://jira.openprovider.nl/secure/useravatar?size=small&ownerId=vsaveliev&avatarId=10600",
-            "32x32": "https://jira.openprovider.nl/secure/useravatar?size=medium&ownerId=vsaveliev&avatarId=10600",
-            "48x48": "https://jira.openprovider.nl/secure/useravatar?ownerId=vsaveliev&avatarId=10600"
+            "16x16": "https://jira.github.com/secure/useravatar?size=xsmall&ownerId=vsaveliev&avatarId=10600",
+            "24x24": "https://jira.github.com/secure/useravatar?size=small&ownerId=vsaveliev&avatarId=10600",
+            "32x32": "https://jira.github.com/secure/useravatar?size=medium&ownerId=vsaveliev&avatarId=10600",
+            "48x48": "https://jira.github.com/secure/useravatar?ownerId=vsaveliev&avatarId=10600"
         },
         "displayName": "Vladislav Saveliev",
-        "emailAddress": "vsaveliev@openprovider.ru",
+        "emailAddress": "vsaveliev@github.com",
         "key": "vsaveliev",
         "name": "vsaveliev",
-        "self": "https://jira.openprovider.nl/rest/api/2/user?username=vsaveliev",
+        "self": "https://jira.github.com/rest/api/2/user?username=vsaveliev",
         "timeZone": "Asia/Novosibirsk"
     },
     "webhookEvent": "jira:issue_updated"
@@ -532,8 +532,8 @@ func getWebHookEvent() *jira.WebHookEvent {
 
 	event.Event = "jira:issue_created"
 	event.Issue.Fields.Assignee.DisplayName = "Vladislav Saveliev"
-	event.Issue.Fields.Creator.DisplayName = "Maarten van Bokhorst"
-	event.Issue.Fields.Reporter.DisplayName = "Maarten van Bokhorst"
+	event.Issue.Fields.Creator.DisplayName = "Michael Daddy"
+	event.Issue.Fields.Reporter.DisplayName = "Michael Daddy"
 	event.Issue.Fields.IssueType.Name = "Bug"
 	event.Issue.Fields.Status.Name = "In Progress"
 	event.Issue.Fields.Summary = "Double invoicelines for renewals"
@@ -548,7 +548,7 @@ func checkWebHookEventFields(t *testing.T, event jira.WebHookEvent) {
 		t.Error("Incorrect parsing of assignee name ", fields.Assignee.DisplayName)
 	}
 
-	if fields.Creator.DisplayName != "Maarten van Bokhorst" {
+	if fields.Creator.DisplayName != "Michael Daddy" {
 		t.Error("Incorrect parsing of creator name ", fields.Creator.DisplayName)
 	}
 
