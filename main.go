@@ -5,14 +5,12 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 	jiraObject := jira.Jira{}
-	jiraObject.Config = jira.Config{
-		Token:   "xoxp-27287745891-27331526278-30312717234-ae3f8c0320",
-		JiraUrl: "https://jira.github.com/browse/",
-	}
+	jiraObject.Config = getConfig()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		var webHook jira.WebHookEvent
@@ -24,4 +22,13 @@ func main() {
 	})
 
 	log.Fatal(http.ListenAndServe(":7878", nil))
+}
+
+func getConfig() jira.Config{
+	config := jira.Config{}
+
+	file, _ := os.Open("config.json")
+	json.NewDecoder(file).Decode(&config)
+
+	return config
 }

@@ -11,8 +11,8 @@ type Jira struct {
 }
 
 type Config struct {
-	Token   string
-	JiraUrl string
+	Token   string `json:"token"`
+	JiraUrl string `json:"jira_url"`
 }
 
 func (self Jira) Process(webHook WebHookEvent) {
