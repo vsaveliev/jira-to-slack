@@ -11,8 +11,11 @@ type Jira struct {
 }
 
 type Config struct {
-	Token   string `json:"token"`
-	JiraUrl string `json:"jira_url"`
+	Token     string `json:"token"`
+	TicketUrl string `json:"ticket_url"`
+	Channel   string `json:"channel"`
+	BotName   string `json:"bot_name"`
+	BotImgUrl string `json:"bot_img_url"`
 }
 
 func (self Jira) Process(webHook WebHookEvent) {
@@ -44,7 +47,7 @@ func (self Jira) isRequiredSendNotification(webHook WebHookEvent) bool {
 func (self Jira) SendNotification(jiraParams Params) {
 	slackParams := slack.PostMessageParameters{}
 	attachment := slack.Attachment{
-		Text:       "<" + self.Config.JiraUrl + jiraParams.Issue + "|*" + jiraParams.Summary + "*>",
+		Text:       "<" + self.Config.TicketUrl + jiraParams.Issue + "|*" + jiraParams.Summary + "*>",
 		MarkdownIn: []string{"text", "pretext"},
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
@@ -65,8 +68,8 @@ func (self Jira) SendNotification(jiraParams Params) {
 		},
 	}
 	slackParams.Attachments = []slack.Attachment{attachment}
-	slackParams.IconURL = "https://a.slack-edge.com/ae7f/plugins/jira/assets/service_512.png" //"http://4.bp.blogspot.com/-cuf_fBZSARQ/T_68G2M6JFI/AAAAAAAAA1c/9zHj_fkeXds/s1600/Jackie+chan.jpg" //"http://risovach.ru/thumb/upload/200s400/2012/12/generator/ura_6457348_orig_.jpeg?bsx2q"
-	slackParams.Username = "Jira"
+	slackParams.IconURL = self.Config.BotImgUrl
+	slackParams.Username = self.Config.Channel
 
 	self.sendMessage(jiraParams.Modifier+" "+jiraParams.Action+" "+jiraParams.IssueType+" "+jiraParams.Issue, slackParams)
 }
@@ -74,7 +77,7 @@ func (self Jira) SendNotification(jiraParams Params) {
 func (self Jira) sendMessage(message string, params slack.PostMessageParameters) {
 	api := slack.New(self.Config.Token)
 
-	channelID, timestamp, err := api.PostMessage("#test_go", message, params)
+	channelID, timestamp, err := api.PostMessage(self.Config.Channel, message, params)
 	if err != nil {
 		fmt.Println("%s\n", err)
 		return

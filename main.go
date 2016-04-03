@@ -1,16 +1,25 @@
 package main
 
 import (
-	"github.com/vsaveliev/jira-to-slack/jira"
 	"encoding/json"
+	"github.com/vsaveliev/jira-to-slack/jira"
 	"log"
 	"net/http"
 	"os"
 )
 
+type Config struct {
+	Port  string `json:"port"`
+	Token string `json:"token"`
+
+	JiraConfig jira.Config `json:"jira"`
+}
+
 func main() {
+	config := getConfig()
+
 	jiraObject := jira.Jira{}
-	jiraObject.Config = getConfig()
+	jiraObject.Config = config.JiraConfig
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		var webHook jira.WebHookEvent
@@ -21,14 +30,16 @@ func main() {
 		}()
 	})
 
-	log.Fatal(http.ListenAndServe(":7878", nil))
+	log.Fatal(http.ListenAndServe(":"+config.Port, nil))
 }
 
-func getConfig() jira.Config{
-	config := jira.Config{}
+func getConfig() Config {
+	config := Config{}
 
 	file, _ := os.Open("config.json")
 	json.NewDecoder(file).Decode(&config)
+
+	config.JiraConfig.Token = config.Token
 
 	return config
 }
