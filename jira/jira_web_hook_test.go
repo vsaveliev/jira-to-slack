@@ -491,7 +491,7 @@ func TestUnmarshalUpdatedIssue(t *testing.T) {
 func TestCreatedWebHookToParams(t *testing.T) {
 	event := getWebHookEvent()
 
-	jiraParams := jira.NewParams(*event)
+	jiraParams := jira.NewParams(event)
 
 	fields := event.Issue.Fields
 	if jiraParams.Assignee != fields.Assignee.DisplayName {
@@ -527,8 +527,8 @@ func TestCreatedWebHookToParams(t *testing.T) {
 	}
 }
 
-func getWebHookEvent() *jira.WebHookEvent {
-	event := &jira.WebHookEvent{}
+func getWebHookEvent() jira.WebHookEvent {
+	event := jira.WebHookEvent{}
 
 	event.Event = "jira:issue_created"
 	event.Issue.Fields.Assignee.DisplayName = "Vladislav Saveliev"

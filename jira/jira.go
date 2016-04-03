@@ -69,7 +69,7 @@ func (self Jira) SendNotification(jiraParams Params) {
 	}
 	slackParams.Attachments = []slack.Attachment{attachment}
 	slackParams.IconURL = self.Config.BotImgUrl
-	slackParams.Username = self.Config.Channel
+	slackParams.Username = self.Config.BotName
 
 	self.sendMessage(jiraParams.Modifier+" "+jiraParams.Action+" "+jiraParams.IssueType+" "+jiraParams.Issue, slackParams)
 }

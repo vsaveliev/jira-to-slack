@@ -16,7 +16,7 @@ type Config struct {
 }
 
 func main() {
-	config := getConfig()
+	config := GetConfig()
 
 	jiraObject := jira.Jira{}
 	jiraObject.Config = config.JiraConfig
@@ -33,7 +33,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":"+config.Port, nil))
 }
 
-func getConfig() Config {
+func GetConfig() Config {
 	config := Config{}
 
 	file, _ := os.Open("config.json")
