@@ -7,7 +7,7 @@ Notifications about:
 * Changed status
 
 Example of work:
-![ScreenShot](img:https://raw.github.com/vsaveliev/jira-to-slack/master/screenshot/2016-04-03_22-42-12.png)
+![](https://raw.github.com/vsaveliev/jira-to-slack/master/screenshot/2016-04-03_22-42-12.png)
 
 TODO:
 * send direct notification to assignee
