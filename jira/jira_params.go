@@ -34,10 +34,14 @@ func NewParams(event WebHookEvent) Params {
 	case params.Event == issueUpdated:
 		params.Action = "updated"
 		for _, field := range event.Changelog.Items {
-			if field.Field == "status" {
+			switch {
+			case field.Field == "status":
+				if field.ToString == "Resolved" {
+					params.Action = "resolved"
+					continue
+				}
 				params.Status = field.FromString + " --> " + field.ToString
-			}
-			if field.Field == "assignee" {
+			case field.Field == "assignee":
 				params.Assignee = field.FromString + " --> " + field.ToString
 			}
 		}

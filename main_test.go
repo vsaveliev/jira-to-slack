@@ -7,7 +7,7 @@ import (
 )
 
 func TestCreatedIssueEvent(t *testing.T) {
-	jiraObject := getJiraObject
+	jiraObject := getJiraObject()
 	event := getEventCreatedIssue()
 
 	jiraObject.Process(event)
@@ -16,6 +16,13 @@ func TestCreatedIssueEvent(t *testing.T) {
 func TestUpdatedIssueEvent(t *testing.T) {
 	jiraObject := getJiraObject()
 	event := getEventUpdatedIssue()
+
+	jiraObject.Process(event)
+}
+
+func TestResolvedIssueEvent(t *testing.T) {
+	jiraObject := getJiraObject()
+	event := getEventResolvedIssue()
 
 	jiraObject.Process(event)
 }
@@ -48,6 +55,7 @@ func getEventCreatedIssue() jira.WebHookEvent {
 func getEventUpdatedIssue() jira.WebHookEvent {
 	event := getEventCreatedIssue()
 
+	event.Modifier.DisplayName = "Vladislav Saveliev"
 	event.Event = "jira:issue_updated"
 	items := make([]jira.ChangeLogItem, 2);
 	items[0] = jira.ChangeLogItem{
@@ -59,6 +67,24 @@ func getEventUpdatedIssue() jira.WebHookEvent {
 		Field: "assignee",
 		FromString: "Vladislav Saveliev",
 		ToString: "Daniel Smith",
+	}
+	event.Changelog.Items = items
+
+	return event
+}
+
+func getEventResolvedIssue() jira.WebHookEvent {
+	event := getEventCreatedIssue()
+
+	event.Modifier.DisplayName = "Daniel Smith"
+	event.Issue.Fields.Assignee.DisplayName = "Daniel Smith"
+	event.Issue.Fields.Status.Name = "Resolved"
+	event.Event = "jira:issue_updated"
+	items := make([]jira.ChangeLogItem, 2);
+	items[0] = jira.ChangeLogItem{
+		Field: "status",
+		FromString: "In progress",
+		ToString: "Resolved",
 	}
 	event.Changelog.Items = items
 
