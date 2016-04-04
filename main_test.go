@@ -40,7 +40,7 @@ func getEventCreatedIssue() jira.WebHookEvent {
 	event := jira.WebHookEvent{}
 
 	event.Event = "jira:issue_created"
-	event.Issue.Fields.Assignee.DisplayName = "Vladislav Saveliev"
+	event.Issue.Fields.Assignee.DisplayName = "Jonh White"
 	event.Issue.Fields.Creator.DisplayName = "Michael Daddy"
 	event.Issue.Fields.Reporter.DisplayName = "Michael Daddy"
 	event.Modifier.DisplayName = "John Jones"
@@ -55,7 +55,7 @@ func getEventCreatedIssue() jira.WebHookEvent {
 func getEventUpdatedIssue() jira.WebHookEvent {
 	event := getEventCreatedIssue()
 
-	event.Modifier.DisplayName = "Vladislav Saveliev"
+	event.Modifier.DisplayName = "Jonh White"
 	event.Event = "jira:issue_updated"
 	items := make([]jira.ChangeLogItem, 2);
 	items[0] = jira.ChangeLogItem{
@@ -65,7 +65,7 @@ func getEventUpdatedIssue() jira.WebHookEvent {
 	}
 	items[1] = jira.ChangeLogItem{
 		Field: "assignee",
-		FromString: "Vladislav Saveliev",
+		FromString: "Jonh White",
 		ToString: "Daniel Smith",
 	}
 	event.Changelog.Items = items
