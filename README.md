@@ -6,6 +6,9 @@ Notifications about:
 * Changed assignee
 * Changed status
 
+Example of work:
+![](https://raw.github.com/vsaveliev/jira-to-slack/master/screenshot/screenshot.png)
+
 TODO:
 * send direct notification to assignee
 * more flexible config
