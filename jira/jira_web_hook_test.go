@@ -26,7 +26,7 @@ var jsonCreatedIssueEvent string = `{
                     "32x32": "https://jira.github.com/secure/useravatar?size=medium&ownerId=johnsmith&avatarId=10800",
                     "48x48": "https://jira.github.com/secure/useravatar?ownerId=johnsmith&avatarId=10800"
                 },
-                "displayName": "Vladislav Saveliev",
+                "displayName": "Jonh White",
                 "emailAddress": "johnsmith@github.com",
                 "key": "johnsmith",
                 "name": "johnsmith",
@@ -229,7 +229,7 @@ var jsonUpdatedIssueEvent string = `
                     "32x32": "https://jira.github.com/secure/useravatar?size=medium&ownerId=vsaveliev&avatarId=10600",
                     "48x48": "https://jira.github.com/secure/useravatar?ownerId=vsaveliev&avatarId=10600"
                 },
-                "displayName": "Vladislav Saveliev",
+                "displayName": "Jonh White",
                 "emailAddress": "vsaveliev@github.com",
                 "key": "vsaveliev",
                 "name": "vsaveliev",
@@ -309,7 +309,7 @@ var jsonUpdatedIssueEvent string = `
             "customfield_10505": {
                 "id": "10114",
                 "self": "https://jira.github.com/rest/api/2/customFieldOption/10114",
-                "value": "Expirations ( Vladislav Saveliev )"
+                "value": "Expirations ( Jonh White )"
             },
             "description": "Reseller reports to me that most of the domains that were renewed today were invoiced double.",
             "duedate": null,
@@ -429,7 +429,7 @@ var jsonUpdatedIssueEvent string = `
             "32x32": "https://jira.github.com/secure/useravatar?size=medium&ownerId=vsaveliev&avatarId=10600",
             "48x48": "https://jira.github.com/secure/useravatar?ownerId=vsaveliev&avatarId=10600"
         },
-        "displayName": "Vladislav Saveliev",
+        "displayName": "Jonh White",
         "emailAddress": "vsaveliev@github.com",
         "key": "vsaveliev",
         "name": "vsaveliev",
@@ -531,7 +531,7 @@ func getWebHookEvent() jira.WebHookEvent {
 	event := jira.WebHookEvent{}
 
 	event.Event = "jira:issue_created"
-	event.Issue.Fields.Assignee.DisplayName = "Vladislav Saveliev"
+	event.Issue.Fields.Assignee.DisplayName = "Jonh White"
 	event.Issue.Fields.Creator.DisplayName = "Michael Daddy"
 	event.Issue.Fields.Reporter.DisplayName = "Michael Daddy"
 	event.Issue.Fields.IssueType.Name = "Bug"
@@ -544,7 +544,7 @@ func getWebHookEvent() jira.WebHookEvent {
 
 func checkWebHookEventFields(t *testing.T, event jira.WebHookEvent) {
 	fields := event.Issue.Fields
-	if fields.Assignee.DisplayName != "Vladislav Saveliev" {
+	if fields.Assignee.DisplayName != "Jonh White" {
 		t.Error("Incorrect parsing of assignee name ", fields.Assignee.DisplayName)
 	}
 
