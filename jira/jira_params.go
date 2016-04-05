@@ -15,6 +15,7 @@ type Params struct {
 	IssueType string
 	Title     string
 	Event     string
+	EventType string
 }
 
 func NewParams(event WebHookEvent) Params {
@@ -38,15 +39,24 @@ func NewParams(event WebHookEvent) Params {
 			case field.Field == "status":
 				if field.ToString == "Resolved" {
 					params.Action = "resolved"
+					params.EventType = goodEventType
 					continue
 				}
 				params.Status = field.FromString + " --> " + field.ToString
 			case field.Field == "assignee":
 				params.Assignee = field.FromString + " --> " + field.ToString
+			case field.Field == "priority":
+				params.Action += " priority (" + field.FromString + " --> " + field.ToString + ") of"
+
+				params.EventType = warningEventType
+				if field.ToString == "Blocker" {
+					params.EventType = dangerEventType
+				}
 			}
 		}
 	case params.Event == issueCreated:
 		params.Action = "created"
+		params.EventType = dangerEventType
 	}
 
 	return params

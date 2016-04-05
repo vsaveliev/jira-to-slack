@@ -6,6 +6,10 @@ import (
 	"github.com/nlopes/slack"
 )
 
+const goodEventType = "good";
+const warningEventType = "warning";
+const dangerEventType = "danger";
+
 type Jira struct {
 	Config
 }
@@ -32,10 +36,7 @@ func (self Jira) isRequiredSendNotification(webHook WebHookEvent) bool {
 
 	if webHook.Event == issueUpdated {
 		for _, field := range webHook.Changelog.Items {
-			if field.Field == "status" {
-				return true
-			}
-			if field.Field == "assignee" {
+			if field.Field == "status" || field.Field == "assignee" || field.Field == "priority" {
 				return true
 			}
 		}
@@ -47,6 +48,7 @@ func (self Jira) isRequiredSendNotification(webHook WebHookEvent) bool {
 func (self Jira) SendNotification(jiraParams Params) {
 	slackParams := slack.PostMessageParameters{}
 	attachment := slack.Attachment{
+		Pretext: jiraParams.Modifier+" "+jiraParams.Action+" "+jiraParams.IssueType+" "+jiraParams.Issue,
 		Text:       "<" + self.Config.TicketUrl + jiraParams.Issue + "|*" + jiraParams.Summary + "*>",
 		MarkdownIn: []string{"text", "pretext"},
 		Fields: []slack.AttachmentField{
@@ -66,12 +68,13 @@ func (self Jira) SendNotification(jiraParams Params) {
 			//				Short: true,
 			//			},
 		},
+		Color: jiraParams.EventType,
 	}
 	slackParams.Attachments = []slack.Attachment{attachment}
 	slackParams.IconURL = self.Config.BotImgUrl
 	slackParams.Username = self.Config.BotName
 
-	self.sendMessage(jiraParams.Modifier+" "+jiraParams.Action+" "+jiraParams.IssueType+" "+jiraParams.Issue, slackParams)
+	self.sendMessage("", slackParams)
 }
 
 func (self Jira) sendMessage(message string, params slack.PostMessageParameters) {
